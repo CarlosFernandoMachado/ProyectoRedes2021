@@ -1,5 +1,4 @@
-import React from 'react'
-
+import React, { useEffect, useState } from "react"
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -11,6 +10,13 @@ import Paper from '@material-ui/core/Paper';
 import Select from '@material-ui/core/Select';
 
 class Producto extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { apiResponse: "" };
+  }
+  componentDidUpdate(){
+    
+  }
   render() {
     return (
       <TablaProductos />
@@ -36,18 +42,30 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-function createData(name, cantidad, precio) {
-  return { name, cantidad, precio};
+//function createData(title, cantidad, precio) {
+  //return { title, cantidad, precio};
+//}
+function useDatos() {
+  const [productos, setProductos] = useState([])
+
+  useEffect(() => {
+    fetch("http://localhost:9000/Productos")
+      .then(response => response.json())
+      .then(datos => {
+        setProductos(datos)
+      })
+  }, [])
+
+  return productos
 }
 
-
-const rows = [
-  createData('Frozen yoghurt', 5, 50),
-  createData('Ice cream sandwich', 10, 18),
-  createData('Eclair', 2, 80),
-  createData('Cupcake', 20, 8),
-  createData('Gingerbread', 17, 12),
-];
+//const rows = [
+  //createData('Frozen yoghurt', 5, 50),
+  //createData('Ice cream sandwich', 10, 18),
+  //createData('Eclair', 2, 80),
+  //createData('Cupcake', 20, 8),
+  //createData('Gingerbread', 17, 12),
+//];
 
 const useStyles = makeStyles({
   table: {
@@ -56,6 +74,8 @@ const useStyles = makeStyles({
 });
 
 function TablaProductos() {
+
+  const misproductos = useDatos();
   const classes = useStyles();
   const [state, setState] = React.useState({
     cantidad: '0',
@@ -80,9 +100,9 @@ function TablaProductos() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {misproductos.map((row) => (
             <StyledTableRow key={row.name}>
-              <StyledTableCell component="th" scope="row">{row.name}</StyledTableCell>
+              <StyledTableCell component="th" scope="row">{row.title}</StyledTableCell>
               <StyledTableCell align="right">{row.cantidad}</StyledTableCell>
               <StyledTableCell align="right">{row.precio}</StyledTableCell>
               <StyledTableCell align="right">
