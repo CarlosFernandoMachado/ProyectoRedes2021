@@ -11,7 +11,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Compras from "../Compras/Compras";
-import Admin from "../Admin/Admin";
+import Autenticacion from "../Autenticacion/Autenticacion";
 import Producto from "../Producto/Producto";
 
 
@@ -69,7 +69,7 @@ function SimpleNavbar(props) {
                                 <Typography variant="h4" className={classes.title} component={Link} to="/">
                                     Mercadito Online
                                 </Typography>
-                                <IconButton className={classes.shopButtons} color="inherit" aria-label="user" component={Link} to="/admin">
+                                <IconButton className={classes.shopButtons} color="inherit" aria-label="user" component={Link} to="/autenticacion">
                                     <AccountCircleIcon fontSize="large" />
                                 </IconButton>
                                 <IconButton className={classes.shopButtons} color="inherit" aria-label="cart" component={Link} to="/compras">
@@ -82,7 +82,7 @@ function SimpleNavbar(props) {
                     <Toolbar />
                     <Switch>
                         <Route exact path="/" component={Producto} />
-                        <Route path="/admin" component={Admin} />
+                        <Route path="/autenticacion" component={Autenticacion} />
                         <Route path="/compras" component={Compras} />
                     </Switch>
                 </Router>
