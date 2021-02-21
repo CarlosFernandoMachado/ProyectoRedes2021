@@ -55,7 +55,7 @@ function useDatos() {
       .then(datos => {
         setProductos(datos)
       })
-    }, 100000);
+    }, 10000);
     return ()=>clearInterval(interval);
   }, [])
 
