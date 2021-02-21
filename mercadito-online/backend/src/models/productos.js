@@ -33,5 +33,5 @@ module.exports = (sequelize, DataType) => {
     Productos.belongsTo(models.Pedidos);
     };
   
-    return Pedidos;
+    return Productos;
   };
