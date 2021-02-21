@@ -49,11 +49,14 @@ function useDatos() {
   const [productos, setProductos] = useState([])
 
   useEffect(() => {
-    fetch("http://localhost:9000/Productos")
+    const interval = setInterval (() =>{
+      fetch("http://localhost:9000/Productos")
       .then(response => response.json())
       .then(datos => {
         setProductos(datos)
       })
+    }, 100000);
+    return ()=>clearInterval(interval);
   }, [])
 
   return productos
