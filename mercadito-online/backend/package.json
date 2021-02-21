@@ -3,9 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "build" : "babel src --out-dir dist",
+    "babel-node": "babel-node src/index.js",
+    "dev": "nodemon --exec npm run babel-node"
   },
   "dependencies": {
+    "consign": "^0.1.6",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
     "debug": "~2.6.9",
@@ -20,6 +23,7 @@
     "@babel/cli": "^7.12.17",
     "@babel/core": "^7.12.17",
     "@babel/node": "^7.12.17",
-    "@babel/preset-env": "^7.12.17"
+    "@babel/preset-env": "^7.12.17",
+    "nodemon": "^2.0.7"
   }
 }
