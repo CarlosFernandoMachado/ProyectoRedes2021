@@ -7,7 +7,8 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { BrowserRouter as Router, Switch, Route, Link, useRouteMatch, useParams } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Admin from '../Admin/Admin'
 
 class Autenticacion extends React.Component {
   render() {
@@ -40,12 +41,11 @@ const useStyles = makeStyles((theme) => ({
 
 function SignIn() {
   const classes = useStyles();
-  let { path, url } = useRouteMatch();
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <Router>
+    <Router>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
             <AccountCircleIcon fontSize="large" />
@@ -84,8 +84,11 @@ function SignIn() {
           </Button>
           </form>
         </div>
-      </Router>
-    </Container>
+      </Container>
+      <Switch>
+        <Route path="/admin" component={Admin} />
+      </Switch>
+    </Router>
   );
 }
 
