@@ -11,9 +11,9 @@ class App extends Component {
 }
 
 callAPI() {
-    fetch("http://localhost:9000/Pedidos")
-        .then(res => res.text())
-        .then(res => this.setState({ apiResponse: res }));
+    //fetch("http://localhost:9000/Pedidos")
+      //  .then(res => res.text())
+       // .then(res => this.setState({ apiResponse: res }));
 }
 
 componentWillMount() {
