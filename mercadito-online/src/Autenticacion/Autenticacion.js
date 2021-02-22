@@ -78,7 +78,7 @@ function SignIn() {
               variant="contained"
               color="primary"
               className={classes.submit}
-              component={Link} to={`${url}/admin`}
+              component={Link} to="/admin"
             >
               Acceder
           </Button>
