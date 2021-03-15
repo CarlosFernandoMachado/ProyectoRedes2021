@@ -42,7 +42,7 @@ class Navbar extends React.Component {
                             </IconButton>
                         </Toolbar>
                     </AppBar>
-                    <Toolbar className="espacio"/>
+                    <div className="espacio"/>
                 </React.Fragment>
             </div>
         );
