@@ -14,22 +14,12 @@ export default class Main extends React.Component {
         this.state = {
             direccion: 'Main',
         };
-        this.Donde = this.Donde.bind(this);
-        this.Redireccionar = this.Redireccionar.bind(this);
-    }
-
-    Donde() {
-        console.log(this.state.direccion);
-    }
-
-    Redireccionar(ubicacion) {
-        this.setState({ direccion: ubicacion });
     }
 
     render() {
         return (
             <Router>
-                <Navegacion Redireccionar={this.Redireccionar} Donde={this.Donde} />
+                <Navegacion/>
                 <Switch>
                     <Route exact path="/" component={Productos} />
                     <Route path="/compras" component={Compras} />

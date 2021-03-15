@@ -15,14 +15,6 @@ import {  Link } from "react-router-dom";
 class Navbar extends React.Component {
     constructor(props) {
         super(props);
-        this.handleClickAcc = this.handleClickAcc.bind(this);
-        this.handleClickSho = this.handleClickSho.bind(this);
-    }
-    handleClickAcc() {
-        this.props.Redireccionar("Account");
-    }
-    handleClickSho() {
-        this.props.Redireccionar("Shop");
     }
     render() {
         return (
