@@ -1,0 +1,20 @@
+.root {
+    flex-grow: 1;
+}
+
+.shopButtons {
+    margin-right: 2;
+}
+
+.toolbar {
+    min-height: max-content;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.titulo {
+    flex-grow: 1;
+}
+.espacio{
+    margin-bottom: 2rem;
+}

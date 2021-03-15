@@ -1,59 +1,29 @@
 import React from 'react';
+import './Autenticacion.css'
+
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import Admin from '../Admin/Admin'
+import { Link } from "react-router-dom";
 
 class Autenticacion extends React.Component {
   render() {
     return (
-      <SignIn />
-    );
-  }
-}
-
-
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.primary.main,
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
-
-function SignIn() {
-  const classes = useStyles();
-
-  return (
-    <Router>
+      <div>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
-        <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
+        <div className="paper">
+          <Avatar className="avatar">
             <AccountCircleIcon fontSize="large" />
           </Avatar>
           <Typography component="h1" variant="h5">
             Autenticarse
         </Typography>
-          <form className={classes.form} noValidate>
+          <form className="form" noValidate>
             <TextField
               variant="outlined"
               margin="normal"
@@ -77,19 +47,18 @@ function SignIn() {
               fullWidth
               variant="contained"
               color="primary"
-              className={classes.submit}
-              component={Link} to="/admin"
+              className="submit"
+              component={Link} 
+              to="/admin"
             >
               Acceder
           </Button>
           </form>
         </div>
       </Container>
-      <Switch>
-        <Route path="/admin" component={Admin} />
-      </Switch>
-    </Router>
-  );
+    </div>
+    );
+  }
 }
 
 export default Autenticacion;
