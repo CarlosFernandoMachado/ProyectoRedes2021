@@ -1,10 +1,13 @@
 import Main from './Main'
-
+import {DataProvider} from './Context';
 function App() {
   return (
-    <div>
+    <DataProvider>
+       <div>
       <Main/>
     </div>
+    </DataProvider>
+   
   );
 }
 

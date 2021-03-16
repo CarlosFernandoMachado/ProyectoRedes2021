@@ -6,6 +6,7 @@ import Autenticacion from "./Autenticacion/Autenticacion";
 import Admin from "./Admin/Admin";
 import CrearProducto from './Crear-Modificar-Productos/CrearProducto'
 import ModificarProducto from './Crear-Modificar-Productos/ModificarProductos'
+import Cart from './carrito/Cart.js'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 export default class Main extends React.Component {
@@ -27,6 +28,7 @@ export default class Main extends React.Component {
                     <Route path="/admin" component={Admin} />
                     <Route path="/crearproducto" component={CrearProducto} />
                     <Route path="/modificarproducto" component={ModificarProducto} />
+                    <Route path="/carrito" component ={Cart}/>
                 </Switch>
             </Router>
         );

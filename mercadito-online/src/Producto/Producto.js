@@ -1,6 +1,6 @@
-import React from 'react'
-
+import React, {Component} from 'react';
 import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableContainer from '@material-ui/core/TableContainer';
@@ -8,10 +8,13 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Paper from '@material-ui/core/Paper';
+import {DataContext} from '../Context';
 
-class Producto extends React.Component {
+export class Producto extends Component {
+  static contextType = DataContext;
   render() {
-
+    const {products,addCart} = this.context;
+    console.log(products);
     function createData(id, name, cantidad, precio) {
       return {id, name, cantidad, precio };
     }
@@ -48,6 +51,7 @@ class Producto extends React.Component {
     }))(Table);
 
     return (
+      <div id="product">
       <TableContainer component={Paper}>
         <StyledTable>
           <TableHead>
@@ -59,17 +63,20 @@ class Producto extends React.Component {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <StyledTableRow key={row.id}>
-                <StyledTableCell component="th" scope="row">{row.name}</StyledTableCell>
-                <StyledTableCell align="right">{row.cantidad}</StyledTableCell>
-                <StyledTableCell align="right">{row.precio}</StyledTableCell>
-                <StyledTableCell align="right">Aqui deberia ir un boton</StyledTableCell>
+            {products.map((product) => (
+              <StyledTableRow key={product.id}>
+                <StyledTableCell component="th" scope="row">{product.title}</StyledTableCell>
+                <StyledTableCell align="right">{product.cantidad}</StyledTableCell>
+                <StyledTableCell align="right">{product.precio}</StyledTableCell>
+                <StyledTableCell align="right">
+                  <Button variant="contained" color="primary" onClick={()=> addCart(product.id)}>Agregar al carrito</Button>
+                </StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>
         </StyledTable>
       </TableContainer>
+      </div>
     );
   }
 }

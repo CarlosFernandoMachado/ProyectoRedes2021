@@ -9,14 +9,16 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import {  Link } from "react-router-dom";
-
+import {DataContext} from '../Context';
 
 
 class Navbar extends React.Component {
     constructor(props) {
         super(props);
     }
+    static contextType = DataContext;
     render() {
+        const {cart} = this.context;
         return (
             <div className="root">
                 <React.Fragment>
@@ -29,7 +31,8 @@ class Navbar extends React.Component {
                             <IconButton className="shopButtons" color="inherit" aria-label="user" component={Link} to="/autenticacion">
                                 <AccountCircleIcon fontSize="large" />
                             </IconButton>
-                            <IconButton className="shopButtons" color="inherit" aria-label="cart"  component={Link} to="/compras">
+                            <IconButton className="shopButtons" color="inherit" aria-label="cart"  component={Link} to="/carrito">
+                                <span>{cart.length}</span>
                                 <ShoppingCartIcon fontSize="large" />
                             </IconButton>
                         </Toolbar>
