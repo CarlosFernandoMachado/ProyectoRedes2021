@@ -11,6 +11,35 @@ import Container from '@material-ui/core/Container';
 import { Link } from "react-router-dom";
 
 class Autenticacion extends React.Component {
+  state ={usuario: []}
+
+  componentDidMount(){
+    fetch("http://localhost:9000/users")
+    .then(async res => {
+      const data = await res.json();
+
+      if(!res.ok){
+        const error =(data  && data.message) || Response.status.Text;
+        return Promise.reject(error);
+      }
+      this.setState({usuario: data});
+      console.log(this.state.usuario);
+    })
+    .catch(error =>{
+      
+    })
+  }
+  login(){
+    this.state.usuario.map((myuser)=>{
+      if(myuser.email ==="Pablo@gmail.com"){
+        if(myuser.password ==="123456"){
+          console.log(myuser.email);
+          console.log(myuser.password);
+          //this.props.history.push('localhost:3000/admin');
+        }
+      }
+    })
+  }
   render() {
     return (
       <div>
@@ -50,6 +79,7 @@ class Autenticacion extends React.Component {
               className="submit"
               component={Link} 
               to="/admin"
+              onClick ={this.login()}
             >
               Acceder
           </Button>

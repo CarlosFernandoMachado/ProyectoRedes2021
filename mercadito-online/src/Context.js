@@ -7,7 +7,8 @@ export class DataProvider extends Component {
     state = {
         products: [],
         cart: [],
-        total: 0
+        total: 0,
+        usuarios:[]
         
     };
    
@@ -69,6 +70,7 @@ export class DataProvider extends Component {
         },0)
         this.setState({total: res})
     };
+   
     
     componentDidUpdate(){
         localStorage.setItem('dataCart', JSON.stringify(this.state.cart))
@@ -78,6 +80,10 @@ export class DataProvider extends Component {
         fetch("http://localhost:9000/Productos")
         .then(res => res.json())
         .then(res => this.setState({ products: res }));
+
+        fetch("http://localhost:9000/users")
+        .then(res => res.json())
+        .then(res => this.setState({ usuarios: res }));
     }
     componentDidMount(){
         fetch("http://localhost:9000/Productos")
