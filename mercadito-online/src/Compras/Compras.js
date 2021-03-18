@@ -9,9 +9,16 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import {DataContext} from '../Context'
 
 class Compras extends React.Component {
+    static contextType = DataContext;
+
+    componentDidMount(){
+        this.context.getTotal();
+    }
     render() {
+        const {cart,increase,reduction,removeProduct,total} = this.context;
 
         const StyledTableCell = withStyles((theme) => ({
             head: {
@@ -45,23 +52,7 @@ class Compras extends React.Component {
             return `${num.toFixed(2)}`;
         }
 
-        //Crea las filas para la tabla
-        function createRow(nombre, cantidad, precio) {
-            const total = cantidad * precio;
-            return { nombre, cantidad, precio, total };
-        }
-
-        //Calcula el subtotal de todos los productos
-        function CalcularSubtotal(items) {
-            return items.map(({ total }) => total).reduce((sum, i) => sum + i, 0);
-        }
-
-        const rows = [
-            createRow('Ice cream sandwich', 2, 10),
-            createRow('Gingerbread', 3, 17),
-        ];
-
-        const invoiceSubtotal = CalcularSubtotal(rows);
+        const invoiceSubtotal = total;
         const invoiceTaxes = TAX_RATE * invoiceSubtotal;
         const invoiceTotal = invoiceTaxes + invoiceSubtotal;
         return (
@@ -76,8 +67,8 @@ class Compras extends React.Component {
                         </StyledTableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map((row) => (
-                            <StyledTableRow key={row.nombre}>
+                        {cart.map((row) => (
+                            <StyledTableRow key={row.id}>
                                 <StyledTableCell>{row.nombre}</StyledTableCell>
                                 <StyledTableCell align="right">{row.cantidad}</StyledTableCell>
                                 <StyledTableCell align="right">{row.precio}</StyledTableCell>
@@ -88,7 +79,7 @@ class Compras extends React.Component {
                         <StyledTableRow>
                             <StyledTableCell rowSpan={3} />
                             <StyledTableCell colSpan={2}>Subtotal</StyledTableCell>
-                            <StyledTableCell align="right">{FormatoTotales(invoiceSubtotal)}</StyledTableCell>
+                            <StyledTableCell align="right">{FormatoTotales(total)}</StyledTableCell>
                         </StyledTableRow>
                         <StyledTableRow>
                             <StyledTableCell>I.S.V</StyledTableCell>

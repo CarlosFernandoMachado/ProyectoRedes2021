@@ -7,9 +7,10 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import {  Link } from "react-router-dom";
-import {DataContext} from '../Context';
+import { Link } from "react-router-dom";
+import { DataContext } from '../Context';
 
 
 class Navbar extends React.Component {
@@ -18,7 +19,7 @@ class Navbar extends React.Component {
     }
     static contextType = DataContext;
     render() {
-        const {cart} = this.context;
+        const { cart } = this.context;
         return (
             <div className="root">
                 <React.Fragment>
@@ -29,15 +30,18 @@ class Navbar extends React.Component {
                                 Mercadito Online
                                 </Typography>
                             <IconButton className="shopButtons" color="inherit" aria-label="user" component={Link} to="/autenticacion">
-                                <AccountCircleIcon fontSize="large" />
+                                {this.props.EstaAutenticado
+                                    ? <ExitToAppIcon fontSize="large" />
+                                    : <AccountCircleIcon fontSize="large" />
+                                }
                             </IconButton>
-                            <IconButton className="shopButtons" color="inherit" aria-label="cart"  component={Link} to="/carrito">
+                            <IconButton className="shopButtons" color="inherit" aria-label="cart" component={Link} to="/carrito">
                                 <span>{cart.length}</span>
                                 <ShoppingCartIcon fontSize="large" />
                             </IconButton>
                         </Toolbar>
                     </AppBar>
-                    <div className="espacio"/>
+                    <div className="espacio" />
                 </React.Fragment>
             </div>
         );

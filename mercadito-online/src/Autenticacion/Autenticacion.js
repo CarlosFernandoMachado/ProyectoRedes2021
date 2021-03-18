@@ -33,6 +33,7 @@ class Autenticacion extends React.Component {
      if(myuser.email ===this.state.email){
       if(myuser.password ===this.state.password){
         if(myuser.admin===true){
+          this.props.Autenticar();
           this.setState({redirect:true});
         }
         

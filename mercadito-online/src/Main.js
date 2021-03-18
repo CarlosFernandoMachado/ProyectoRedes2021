@@ -13,22 +13,27 @@ export default class Main extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            direccion: 'Main',
+            logged: false,
         };
     }
-
+    Autenticar = () => {
+        this.setState({ logged: true });
+    }
+    EstaAutenticado = () => {
+        return this.state.logged;
+    }
     render() {
         return (
             <Router>
-                <Navegacion/>
+                <Navegacion EstaAutenticado={this.EstaAutenticado}/>
                 <Switch>
                     <Route exact path="/" component={Productos} />
                     <Route path="/compras" component={Compras} />
-                    <Route path="/autenticacion" component={Autenticacion} />
+                    <Route path="/autenticacion" render={(props) => (<Autenticacion {...props} Autenticar={this.Autenticar} EstaAutenticado={this.EstaAutenticado} />)} />
                     <Route path="/admin" component={Admin} />
                     <Route path="/crearproducto" component={CrearProducto} />
                     <Route path="/modificarproducto" component={ModificarProducto} />
-                    <Route path="/carrito" component ={Cart}/>
+                    <Route path="/carrito" component={Cart} />
                 </Switch>
             </Router>
         );
