@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-
 export const DataContext = React.createContext();
 
 export class DataProvider extends Component {
@@ -7,7 +6,8 @@ export class DataProvider extends Component {
     state = {
         products: [],
         cart: [],
-        total: 0
+        total: 0,
+        usuarios:[]
         
     };
    
@@ -25,7 +25,23 @@ export class DataProvider extends Component {
             alert("The product has been added to cart.")
         }
     };
-
+    login=(email, password)=>{
+        const {usuarios, redirect} = this.state;
+        const check = usuarios.every(item=>{
+            return item.email === email
+        })
+        if(check){
+            const valido = usuarios.every(item=>{
+                return item.password === password
+            })
+            if(valido){
+                return "/admin";
+                
+            }else{
+                return "/";
+            }
+        }
+    }
     reduction = id =>{
         const { cart } = this.state;
         cart.forEach(item =>{
@@ -69,6 +85,7 @@ export class DataProvider extends Component {
         },0)
         this.setState({total: res})
     };
+   
     
     componentDidUpdate(){
         localStorage.setItem('dataCart', JSON.stringify(this.state.cart))
@@ -78,6 +95,10 @@ export class DataProvider extends Component {
         fetch("http://localhost:9000/Productos")
         .then(res => res.json())
         .then(res => this.setState({ products: res }));
+
+        fetch("http://localhost:9000/users")
+        .then(res => res.json())
+        .then(res => this.setState({ usuarios: res }));
     }
     componentDidMount(){
         fetch("http://localhost:9000/Productos")
@@ -95,11 +116,11 @@ export class DataProvider extends Component {
    
 
     render() {
-        const {products, cart,total} = this.state;
-        const {addCart,reduction,increase,removeProduct,getTotal} = this;
+        const {usuarios,products, cart,total} = this.state;
+        const {login,addCart,reduction,increase,removeProduct,getTotal} = this;
         return (
             <DataContext.Provider 
-            value={{products, addCart, cart, reduction,increase,removeProduct,total,getTotal}}>
+            value={{usuarios, login, products, addCart, cart, reduction,increase,removeProduct,total,getTotal}}>
                 {this.props.children}
             </DataContext.Provider>
         )
