@@ -20,16 +20,19 @@ export default class Main extends React.Component {
         this.setState({ logged: true });
     }
     EstaAutenticado = () => {
-        return this.state.logged;
+        if (this.state.logged) {
+            return true
+        }
+        return false
     }
     render() {
         return (
             <Router>
-                <Navegacion EstaAutenticado={this.EstaAutenticado}/>
+                <Navegacion EstaAutenticado={this.EstaAutenticado} logged={this.state.logged} />
                 <Switch>
                     <Route exact path="/" component={Productos} />
                     <Route path="/compras" component={Compras} />
-                    <Route path="/autenticacion" render={(props) => (<Autenticacion {...props} Autenticar={this.Autenticar} EstaAutenticado={this.EstaAutenticado} />)} />
+                    <Route path="/autenticacion" render={(props) => (<Autenticacion {...props} Autenticar={this.Autenticar} />)} />
                     <Route path="/admin" component={Admin} />
                     <Route path="/crearproducto" component={CrearProducto} />
                     <Route path="/modificarproducto" component={ModificarProducto} />
