@@ -1,6 +1,5 @@
 import React from 'react';
 import './Autenticacion.css'
-import { Redirect } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -10,8 +9,8 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { Link } from "react-router-dom";
 import {DataContext} from '../Context';
-import 'firebase/auth'
-import {useFirebaseApp} from 'reactfire';
+import Navbar from '../Navbar/Navbar';
+import { Redirect } from 'react-router-dom';
 class Autenticacion extends React.Component {
   constructor(props) {
     super(props);
@@ -30,56 +29,57 @@ class Autenticacion extends React.Component {
   }
 
   handleSubmit(event) {
-  //  alert('A name was submitted: ' + this.state.email);
-   // this.state.usuario.map((myuser)=>{
-    //  if(myuser.email ===this.state.email){
-    //    if(myuser.password ===this.state.password){
-     //     this.setState({redirect:true});
-          //this.props.history.push('localhost:3000/admin');
-    //    }
-    //  }
-   // })
-    //event.preventDefault();
+   this.state.usuario.map((myuser)=>{
+     if(myuser.email ===this.state.email){
+      if(myuser.password ===this.state.password){
+        if(myuser.admin===true){
+          this.setState({redirect:true});
+        }
+        
+          
+        }
+    }
+   })
+    event.preventDefault();
   }
   
   componentDidMount(){
-   // fetch("http://localhost:9000/users")
-   // .then(async res => {
-     // const data = await res.json();
+   fetch("http://localhost:9000/users")
+    .then(async res => {
+      const data = await res.json();
 
-      //if(!res.ok){
-     //   const error =(data  && data.message) || Response.status.Text;
-      //  return Promise.reject(error);
-     // }
-     // this.setState({usuario: data});
+      if(!res.ok){
+        const error =(data  && data.message) || Response.status.Text;
+        return Promise.reject(error);
+      }
+      this.setState({usuario: data});
      
-   //})
-    //.catch(error =>{
+   })
+    .catch(error =>{
       
-    //})
+    })
   }
   login(){
-    //this.state.usuario.map((myuser)=>{
-      //if(myuser.email ===this.state.email){
-        //if(myuser.password ===this.state.password){
-          //console.log(myuser.email);
-          //console.log(myuser.password);
-          //this.setState({redirect:true});
-          //this.props.history.push('localhost:3000/admin');
-        //}
-      //}
-    //})
+    this.state.usuario.map((myuser)=>{
+      if(myuser.email ===this.state.email){
+        if(myuser.password ===this.state.password){
+          if(myuser.admin === true){
+            return "/admin"
+          }else{
+            return "/autenticacion"
+          }
+         
+        }
+      }
+    })
   }
-  renderRedirect = () => {
-    if (this.state.redirect) {
-      return <Redirect to='/admin' />
-    }
-  }
+  
   render() {
-    const {usuarios,login} = this.context;
+    const {EstaAutenticado,usuarios,login} = this.context;
     return (
       <div>
-        {this.renderRedirect()}
+        <Navbar Autenticado={this.state.redirect}/>
+        { this.state.redirect ? (<Redirect push to="/admin"/>) : null }
       <Container component="main" maxWidth="xs" >
         <CssBaseline />
         <div className="paper">
@@ -116,9 +116,8 @@ class Autenticacion extends React.Component {
               variant="contained"
               color="primary"
               className="submit"
-              component ={Link}
-              to = {()=> login(this.state.email, this.state.password)}
              
+              value="Submit"value="Submit"
             >
               Acceder
           </Button>

@@ -7,7 +7,8 @@ export class DataProvider extends Component {
         products: [],
         cart: [],
         total: 0,
-        usuarios:[]
+        usuarios:[],
+        EstaAutenticado:false
         
     };
    
@@ -26,7 +27,7 @@ export class DataProvider extends Component {
         }
     };
     login=(email, password)=>{
-        const {usuarios, redirect} = this.state;
+        const {usuarios, EstaAutenticado} = this.state;
         const check = usuarios.every(item=>{
             return item.email === email
         })
@@ -116,11 +117,11 @@ export class DataProvider extends Component {
    
 
     render() {
-        const {usuarios,products, cart,total} = this.state;
+        const {EstaAutenticado, usuarios,products, cart,total} = this.state;
         const {login,addCart,reduction,increase,removeProduct,getTotal} = this;
         return (
             <DataContext.Provider 
-            value={{usuarios, login, products, addCart, cart, reduction,increase,removeProduct,total,getTotal}}>
+            value={{EstaAutenticado, usuarios, login, products, addCart, cart, reduction,increase,removeProduct,total,getTotal}}>
                 {this.props.children}
             </DataContext.Provider>
         )

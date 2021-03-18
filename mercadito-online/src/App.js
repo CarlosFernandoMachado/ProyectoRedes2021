@@ -1,6 +1,6 @@
 import Main from './Main'
 import {DataProvider} from './Context';
-import Auth from './Autenticacion/Autenticacion';
+
 function App() {
   return (
     <DataProvider>
