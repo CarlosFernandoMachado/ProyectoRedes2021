@@ -37,7 +37,7 @@ class Navbar extends React.Component {
                                 Mercadito Online
                                 </Typography>
                             <IconButton className="shopButtons" color="inherit" aria-label="user" component={Link} to="/autenticacion" onClick={() => console.log(this.props.EstaAutenticado())}>
-                                {this.props.EstaAutenticado
+                                {this.props.EstaAutenticado()
                                     ? <ExitToAppIcon fontSize="large" />
                                     : <AccountCircleIcon fontSize="large" />
                                 }
