@@ -1,4 +1,6 @@
 import React from "react"
+import './Admin.css'
+
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -8,6 +10,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import CreateIcon from '@material-ui/icons/Create';
+import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import { Link } from "react-router-dom";
@@ -46,13 +49,13 @@ class Admin extends React.Component {
     return (
       <div>
         <TableContainer component={Paper}>
-          <Table className="table">
+          <Table>
             <TableHead>
               <TableRow>
                 <StyledTableCell>Nombre</StyledTableCell>
                 <StyledTableCell align="right">Cantidad</StyledTableCell>
                 <StyledTableCell align="right">Precio</StyledTableCell>
-                <StyledTableCell align="right">Modificar</StyledTableCell>
+                <StyledTableCell align="right">Acciones</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -65,14 +68,18 @@ class Admin extends React.Component {
                     <IconButton color="inherit" component={Link} to="/modificarproducto">
                       <CreateIcon fontSize="small"/>
                     </IconButton>
+                    <IconButton color="inherit">
+                      <DeleteIcon fontSize="small"/>
+                    </IconButton>
                   </StyledTableCell>
                 </StyledTableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
-        <div className="paper">
-          <Button size="large" variant="contained" color="primary" component={Link} to="/crearproducto">Crear Producto</Button>
+        <div className="grid-container">
+          <Button className="grid-item" size="large" variant="contained" color="primary" component={Link} to="/crearproducto">Crear Producto</Button>
+          <Button className="grid-item" size="large" variant="contained" color="primary" component={Link} to="/pedidos">Ver Pedidos Hechos</Button>
         </div>
       </div>
     );

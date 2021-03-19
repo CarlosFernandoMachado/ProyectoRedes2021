@@ -65,6 +65,7 @@ class Autenticacion extends React.Component {
       if (myuser.email === this.state.email) {
         if (myuser.password === this.state.password) {
           if (myuser.admin === true) {
+            this.props.Autenticar();
             return "/admin"
           } else {
             return "/autenticacion"
@@ -117,7 +118,6 @@ class Autenticacion extends React.Component {
                 variant="contained"
                 color="primary"
                 className="submit"
-                onClick={() => this.props.Autenticar()}
                 value="Submit"
               >
                 Acceder

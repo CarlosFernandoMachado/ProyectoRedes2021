@@ -4,8 +4,9 @@ import Productos from "./Producto/Producto";
 import Compras from "./Compras/Compras";
 import Autenticacion from "./Autenticacion/Autenticacion";
 import Admin from "./Admin/Admin";
-import CrearProducto from './Crear-Modificar-Productos/CrearProducto'
-import ModificarProducto from './Crear-Modificar-Productos/ModificarProductos'
+import CrearProducto from './Crear-Modificar-Eliminar-Productos/CrearProducto'
+import ModificarProducto from './Crear-Modificar-Eliminar-Productos/ModificarProductos'
+import Pedidos from './Pedidos/Pedidos'
 import Cart from './carrito/Cart.js'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -28,7 +29,7 @@ export default class Main extends React.Component {
     render() {
         return (
             <Router>
-                <Navegacion EstaAutenticado={this.EstaAutenticado} logged={this.state.logged} />
+                <Navegacion EstaAutenticado={this.EstaAutenticado}/>
                 <Switch>
                     <Route exact path="/" component={Productos} />
                     <Route path="/compras" component={Compras} />
@@ -37,6 +38,7 @@ export default class Main extends React.Component {
                     <Route path="/crearproducto" component={CrearProducto} />
                     <Route path="/modificarproducto" component={ModificarProducto} />
                     <Route path="/carrito" component={Cart} />
+                    <Route path="/pedidos" component={Pedidos} />
                 </Switch>
             </Router>
         );
