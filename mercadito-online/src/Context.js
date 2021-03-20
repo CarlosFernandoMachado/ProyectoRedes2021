@@ -97,11 +97,20 @@ export class DataProvider extends Component {
         }
        
     };
-    actualizar_productos = () =>{
-        fetch("http://localhost:9000/Productos")
-        .then(res => res.json())
-        .then(res => this.setState({ products: res }));
-       
+    actualizar_productos = (id,title,cantidad,precio) =>{
+        const datos={
+            id:id,
+            title:title,
+            cantidad:cantidad,
+            precio:precio
+        }
+        const {products} = this.state;
+        products.forEach((item, index) =>{
+            if(item.id === id){
+                products[index]=datos;
+            }
+        })
+        this.setState({products: products});       
     };
     getTotal = ()=>{
         const{cart} = this.state;

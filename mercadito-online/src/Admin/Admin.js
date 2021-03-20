@@ -40,7 +40,8 @@ class Admin extends React.Component {
       })
   }
   render() {
-    const {products,removeProductoInventario} = this.context;
+    const {products,removeProductoInventario,actualizar_productos} = this.context;
+    
     const StyledTableCell = withStyles((theme) => ({
       head: {
         backgroundColor: theme.palette.common.black,
