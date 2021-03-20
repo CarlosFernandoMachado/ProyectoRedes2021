@@ -9,11 +9,14 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Paper from '@material-ui/core/Paper';
 import {DataContext} from '../Context';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
+import RemoveShoppingCartIcon from '@material-ui/icons/RemoveShoppingCart';
 
 export class Producto extends Component {
   static contextType = DataContext;
   render() {
-    const {products,addCart} = this.context;
+    const {products,addCart, increase, decrease} = this.context;
     console.log(products);
     function createData(id, name, cantidad, precio) {
       return {id, name, cantidad, precio };
@@ -32,7 +35,7 @@ export class Producto extends Component {
         color: theme.palette.common.white,
       },
       body: {
-        fontSize: 14,
+        fontSize: 20,
       },
     }))(TableCell);
 

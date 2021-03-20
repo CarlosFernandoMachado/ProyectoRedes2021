@@ -10,6 +10,9 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import {DataContext} from '../Context'
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
+import RemoveShoppingCartIcon from '@material-ui/icons/RemoveShoppingCart';
 
 class Compras extends React.Component {
     static contextType = DataContext;
@@ -26,7 +29,7 @@ class Compras extends React.Component {
                 color: theme.palette.common.white,
             },
             body: {
-                fontSize: 14,
+                fontSize: 20,
             },
         }))(TableCell);
 
@@ -45,7 +48,7 @@ class Compras extends React.Component {
         }))(Table);
 
         //Impuesto
-        const TAX_RATE = 0.07;
+        const TAX_RATE = 0.15;
 
         //Formato con 2 decimales
         function FormatoTotales(num) {
@@ -69,25 +72,36 @@ class Compras extends React.Component {
                     <TableBody>
                         {cart.map((row) => (
                             <StyledTableRow key={row.id}>
-                                <StyledTableCell>{row.nombre}</StyledTableCell>
-                                <StyledTableCell align="right">{row.cantidad}</StyledTableCell>
+                                <StyledTableCell>{row.title}</StyledTableCell>
+                                <StyledTableCell align="right">
+                                    <RemoveCircleIcon color="secondary" fontSize="small" onClick={() => reduction(row.id)}/>
+                                    {row.cantidad}
+                                    <AddCircleIcon color="secondary" fontSize="small" onClick={() => increase(row.id)}/>
+                                    </StyledTableCell>
                                 <StyledTableCell align="right">{row.precio}</StyledTableCell>
-                                <StyledTableCell align="right">{FormatoTotales(row.precio)}</StyledTableCell>
+                                <StyledTableCell align="right">
+                                    {FormatoTotales(row.precio)}
+                                    <RemoveShoppingCartIcon color="secondary" fontSize="small" onClick={() => removeProduct(row.id)}/>
+                                    </StyledTableCell>
                             </StyledTableRow>
                         ))}
 
                         <StyledTableRow>
-                            <StyledTableCell rowSpan={3} />
-                            <StyledTableCell colSpan={2}>Subtotal</StyledTableCell>
+                            <StyledTableCell/>
+                            <StyledTableCell colSpan={1} align="right">Subtotal</StyledTableCell>
+                            <StyledTableCell/>
                             <StyledTableCell align="right">{FormatoTotales(total)}</StyledTableCell>
                         </StyledTableRow>
                         <StyledTableRow>
-                            <StyledTableCell>I.S.V</StyledTableCell>
+                            <StyledTableCell/>
+                            <StyledTableCell align="right">I.S.V</StyledTableCell>
                             <StyledTableCell align="right">{`${(TAX_RATE * 100).toFixed(0)} %`}</StyledTableCell>
                             <StyledTableCell align="right">{FormatoTotales(invoiceTaxes)}</StyledTableCell>
                         </StyledTableRow>
                         <StyledTableRow>
-                            <StyledTableCell colSpan={2}>Total</StyledTableCell>
+                            <StyledTableCell/>
+                            <StyledTableCell colSpan={1} align="right">Total</StyledTableCell>
+                            <StyledTableCell/>
                             <StyledTableCell align="right">{FormatoTotales(invoiceTotal)}</StyledTableCell>
                         </StyledTableRow>
                         <StyledTableRow>

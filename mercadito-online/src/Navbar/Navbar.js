@@ -42,7 +42,7 @@ class Navbar extends React.Component {
                                     : <AccountCircleIcon fontSize="large" />
                                 }
                             </IconButton>
-                            <IconButton className="shopButtons" color="inherit" aria-label="cart" component={Link} to="/carrito">
+                            <IconButton className="shopButtons" color="inherit" aria-label="cart" component={Link} to="/compras">
                                 <StyledBadge badgeContent={cart.length} color="secondary">
                                     <ShoppingCartIcon fontSize="large" />
                                 </StyledBadge>
