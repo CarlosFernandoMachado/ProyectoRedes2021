@@ -38,7 +38,7 @@ export class Cart extends Component {
                                    <td>
                                         <div className="amount">
                                             <button className="count" onClick={() => reduction(item.id)}> - </button>
-                                            <span>{item.cantidad}</span>
+                                            <span>{item.cantidad-(item.cantidad-1)}</span>
                                             <button className="count" onClick={() => increase(item.id)}> + </button>
                                         </div>
                                     </td>

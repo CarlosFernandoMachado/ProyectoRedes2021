@@ -12,7 +12,7 @@ import { DataContext } from '../Context';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import RemoveShoppingCartIcon from '@material-ui/icons/RemoveShoppingCart';
-
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 export class Producto extends Component {
   static contextType = DataContext;
   render() {
@@ -60,8 +60,7 @@ export class Producto extends Component {
             <TableHead>
               <TableRow>
                 <StyledTableCell>Nombre</StyledTableCell>
-                <StyledTableCell align="right">Cantidad</StyledTableCell>
-                <StyledTableCell align="right">Precio</StyledTableCell>
+                <StyledTableCell align="right">Precio unitario</StyledTableCell>
                 <StyledTableCell align="right">Producto a comprar</StyledTableCell>
                 <StyledTableCell align="right">Eliminar</StyledTableCell>
               </TableRow>
@@ -70,12 +69,10 @@ export class Producto extends Component {
               {products.map((product) => (
                 <StyledTableRow key={product.id}>
                   <StyledTableCell component="th" scope="row">{product.title}</StyledTableCell>
-                  <StyledTableCell align="right">{product.cantidad}</StyledTableCell>
+
                   <StyledTableCell align="right">{product.precio}</StyledTableCell>
                   <StyledTableCell align="right">
-                    <RemoveCircleIcon color="secondary" fontSize="small" onClick={() => reduction(product.id)} />
-                    {product.cantidad}
-                    <AddCircleIcon color="secondary" fontSize="small" onClick={() => addCart(product.id)} />
+                    <AddShoppingCartIcon color="secondary" fontSize="small" onClick={() => addCart(product.id)} />
                   </StyledTableCell>
                   <StyledTableCell align="right">
                   <RemoveShoppingCartIcon color="secondary" fontSize="small" onClick={() => removeProduct(product.id)}/>

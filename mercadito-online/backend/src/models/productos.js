@@ -18,7 +18,8 @@ module.exports = (sequelize, DataType) => {
         allowNull: false,
         validate: {
             notEmpty: true
-        }
+        },
+        defaultValue: 1
       },
       precio: {
         type: DataType.INTEGER,

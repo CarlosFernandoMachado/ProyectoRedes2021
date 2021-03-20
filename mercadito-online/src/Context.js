@@ -70,6 +70,7 @@ export class DataProvider extends Component {
             const {cart} = this.state;
             cart.forEach((item, index) =>{
                 if(item.id === id){
+                    item.cantidad =1;
                     cart.splice(index, 1)
                 }
             })
