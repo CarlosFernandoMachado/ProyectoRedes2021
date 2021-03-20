@@ -22,6 +22,7 @@ class Admin extends React.Component {
     this.state = {productos: []};
   }
   static contextType = DataContext;
+  //Esta funcion actualmente no se utiliza para nada ahah
   componentDidMount() {
     fetch("http://localhost:9000/Productos")
       .then(async res => {
@@ -37,9 +38,6 @@ class Admin extends React.Component {
       .catch(error => {
 
       })
-  }
-  borrar(id){
-
   }
   render() {
     const {products,removeProductoInventario} = this.context;
@@ -92,7 +90,7 @@ class Admin extends React.Component {
                   <StyledTableCell align="right">{product.cantidad}</StyledTableCell>
                   <StyledTableCell align="right">{product.precio}</StyledTableCell>
                   <StyledTableCell align="right">
-                    <IconButton color="inherit" component={Link} to={{pathname: "modificarproducto",state:{id: product.id}}}>
+                    <IconButton color="inherit" component={Link} to={{pathname: "modificarproducto",state:{id: product.id, title:product.title, cantidad:product.cantidad, precio:product.precio}}}>
                       <CreateIcon fontSize="small"/>
                     </IconButton>
                     <IconButton color="inherit" onClick={() => removeProductoInventario(product.id)}>

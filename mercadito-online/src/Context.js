@@ -97,6 +97,12 @@ export class DataProvider extends Component {
         }
        
     };
+    actualizar_productos = () =>{
+        fetch("http://localhost:9000/Productos")
+        .then(res => res.json())
+        .then(res => this.setState({ products: res }));
+       
+    };
     getTotal = ()=>{
         const{cart} = this.state;
         const res = cart.reduce((prev, item) => {
@@ -136,10 +142,10 @@ export class DataProvider extends Component {
 
     render() {
         const {EstaAutenticado, usuarios,products, cart,total} = this.state;
-        const {login,removeProductoInventario,addCart,reduction,increase,removeProduct,getTotal} = this;
+        const {login,removeProductoInventario,actualizar_productos,addCart,reduction,increase,removeProduct,getTotal} = this;
         return (
             <DataContext.Provider 
-            value={{EstaAutenticado, usuarios, login, products, removeProductoInventario,addCart, cart, reduction,increase,removeProduct,total,getTotal}}>
+            value={{EstaAutenticado, usuarios, login, products,actualizar_productos, removeProductoInventario,addCart, cart, reduction,increase,removeProduct,total,getTotal}}>
                 {this.props.children}
             </DataContext.Provider>
         )
