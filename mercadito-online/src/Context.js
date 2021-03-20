@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
+import axios from 'axios';
 export const DataContext = React.createContext();
-
 export class DataProvider extends Component {
 
     state = {
@@ -78,7 +78,25 @@ export class DataProvider extends Component {
         }
        
     };
-
+    removeProductoInventario = id =>{
+        if(window.confirm("Borrar este producto del inventario?")){
+            const {products} = this.state;
+            products.forEach((item, index) =>{
+                if(item.id === id){
+                    products.splice(index, 1)
+                }
+            })
+            this.setState({products: products});
+            const url = "http://localhost:9000/Productos/"+id;
+            axios.delete(url)
+            .then(res => {
+              console.log(res);
+              console.log(res.data);
+        
+            })
+        }
+       
+    };
     getTotal = ()=>{
         const{cart} = this.state;
         const res = cart.reduce((prev, item) => {
@@ -118,10 +136,10 @@ export class DataProvider extends Component {
 
     render() {
         const {EstaAutenticado, usuarios,products, cart,total} = this.state;
-        const {login,addCart,reduction,increase,removeProduct,getTotal} = this;
+        const {login,removeProductoInventario,addCart,reduction,increase,removeProduct,getTotal} = this;
         return (
             <DataContext.Provider 
-            value={{EstaAutenticado, usuarios, login, products, addCart, cart, reduction,increase,removeProduct,total,getTotal}}>
+            value={{EstaAutenticado, usuarios, login, products, removeProductoInventario,addCart, cart, reduction,increase,removeProduct,total,getTotal}}>
                 {this.props.children}
             </DataContext.Provider>
         )

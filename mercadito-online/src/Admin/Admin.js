@@ -14,10 +14,35 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import { Link } from "react-router-dom";
+import {DataContext} from '../Context'
 
 class Admin extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {productos: []};
+  }
+  static contextType = DataContext;
+  componentDidMount() {
+    fetch("http://localhost:9000/Productos")
+      .then(async res => {
+        const data = await res.json();
 
+        if (!res.ok) {
+          const error = (data && data.message) || Response.status.Text;
+          return Promise.reject(error);
+        }
+        this.setState({ productos: data });
+
+      })
+      .catch(error => {
+
+      })
+  }
+  borrar(id){
+
+  }
   render() {
+    const {products,removeProductoInventario} = this.context;
     const StyledTableCell = withStyles((theme) => ({
       head: {
         backgroundColor: theme.palette.common.black,
@@ -52,6 +77,7 @@ class Admin extends React.Component {
           <Table>
             <TableHead>
               <TableRow>
+              <StyledTableCell>ID</StyledTableCell>
                 <StyledTableCell>Nombre</StyledTableCell>
                 <StyledTableCell align="right">Cantidad</StyledTableCell>
                 <StyledTableCell align="right">Precio</StyledTableCell>
@@ -59,16 +85,17 @@ class Admin extends React.Component {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row) => (
-                <StyledTableRow key={row.name}>
-                  <StyledTableCell component="th" scope="row">{row.name}</StyledTableCell>
-                  <StyledTableCell align="right">{row.cantidad}</StyledTableCell>
-                  <StyledTableCell align="right">{row.precio}</StyledTableCell>
+              {products.map((product) => (
+                <StyledTableRow key={product.id}>
+                  <StyledTableCell component="th" scope="row">{product.id}</StyledTableCell>
+                  <StyledTableCell component="th" scope="row">{product.title}</StyledTableCell>
+                  <StyledTableCell align="right">{product.cantidad}</StyledTableCell>
+                  <StyledTableCell align="right">{product.precio}</StyledTableCell>
                   <StyledTableCell align="right">
                     <IconButton color="inherit" component={Link} to="/modificarproducto">
                       <CreateIcon fontSize="small"/>
                     </IconButton>
-                    <IconButton color="inherit">
+                    <IconButton color="inherit" onClick={() => removeProductoInventario(product.id)}>
                       <DeleteIcon fontSize="small"/>
                     </IconButton>
                   </StyledTableCell>
