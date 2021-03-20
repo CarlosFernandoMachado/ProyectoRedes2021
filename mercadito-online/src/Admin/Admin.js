@@ -92,7 +92,7 @@ class Admin extends React.Component {
                   <StyledTableCell align="right">{product.cantidad}</StyledTableCell>
                   <StyledTableCell align="right">{product.precio}</StyledTableCell>
                   <StyledTableCell align="right">
-                    <IconButton color="inherit" component={Link} to="/modificarproducto">
+                    <IconButton color="inherit" component={Link} to={{pathname: "modificarproducto",state:{id: product.id}}}>
                       <CreateIcon fontSize="small"/>
                     </IconButton>
                     <IconButton color="inherit" onClick={() => removeProductoInventario(product.id)}>

@@ -37,7 +37,7 @@ export default class ModificarProducto extends React.Component {
                     />
                 </div>
                 <div className="paper">
-                    <Button size="large" variant="contained" color="primary" component={Link} to="/admin">Modificar Producto</Button>
+                    <Button size="large" variant="contained" color="primary" component={Link} to="/admin" onClick={() => console.log(this.props.location.state.id)}>Modificar Producto</Button>
                 </div>
             </div>
         );
