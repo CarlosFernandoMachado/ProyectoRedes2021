@@ -13,8 +13,29 @@ module.exports = (sequelize, DataType) => {
           notEmpty: true
         }
       },
+      direccion: {
+        type: DataType.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: true
+        }
+      },
+      telefono: {
+        type: DataType.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: true
+        }
+      },
       contenido: {
         type: DataType.STRING,
+        allowNull: false,
+        validate: {
+            notEmpty: true
+        }
+      },
+      precio: {
+        type: DataType.DOUBLE,
         allowNull: false,
         validate: {
             notEmpty: true

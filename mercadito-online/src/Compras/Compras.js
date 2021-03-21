@@ -1,5 +1,5 @@
 import React from 'react'
-
+import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -13,15 +13,33 @@ import {DataContext} from '../Context'
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import RemoveShoppingCartIcon from '@material-ui/icons/RemoveShoppingCart';
+import { Link } from "react-router-dom";
 
 class Compras extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {title: "", direccion: "", telefono:""};
+    
+        this.Changetitle = this.Changetitle.bind(this);
+        this.Changedireccion = this.Changedireccion.bind(this);
+        this.Changetelefono = this.Changetelefono.bind(this);
+       // this.handleSubmit = this.handleSubmit.bind(this);
+      }
     static contextType = DataContext;
-
+    Changetitle(event) {
+        this.setState({title: event.target.value});
+      }
+      Changedireccion(event) {
+        this.setState({direccion: event.target.value});
+      }
+      Changetelefono(event) {
+        this.setState({telefono: event.target.value});
+      }
     componentDidMount(){
         this.context.getTotal();
     }
     render() {
-        const {cart,increase,reduction,removeProduct,total} = this.context;
+        const {cart,addPedido,increase,reduction,removeProduct,total} = this.context;
 
         const StyledTableCell = withStyles((theme) => ({
             head: {
@@ -59,7 +77,28 @@ class Compras extends React.Component {
         const invoiceTaxes = TAX_RATE * invoiceSubtotal;
         const invoiceTotal = invoiceTaxes + invoiceSubtotal;
         return (
-            <TableContainer component={Paper}>
+            <div>
+                <div className="root">
+                    <TextField
+                        label="Nombre"
+                        variant="outlined"
+                        type="text" 
+                        value={this.state.title} onChange={this.Changetitle}
+                    />
+                    <TextField
+                        label="Direccion"
+                        variant="outlined"
+                        type="text" 
+                        value={this.state.direccion} onChange={this.Changedireccion}
+                    />
+                    <TextField
+                        label="Telefono"
+                        variant="outlined"
+                        type="text" 
+                        value={this.state.telefono} onChange={this.Changetelefono}
+                    />
+                </div>
+                <TableContainer component={Paper}>
                 <StyledTable>
                     <TableHead>
                         <StyledTableRow>
@@ -107,12 +146,14 @@ class Compras extends React.Component {
                         <StyledTableRow>
                             <StyledTableCell colSpan={3}></StyledTableCell>
                             <StyledTableCell align="right">
-                                <Button variant="contained">Comprar</Button>
+                                <Button variant="contained" component={Link} to="/" onClick={() => addPedido(this.state.title,this.state.direccion,this.state.telefono)}>Comprar</Button>
                             </StyledTableCell>
                         </StyledTableRow>
                     </TableBody>
                 </StyledTable>
             </TableContainer>
+            </div>
+           
         );
     }
 }

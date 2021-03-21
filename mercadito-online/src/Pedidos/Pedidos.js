@@ -15,9 +15,11 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-
+import {DataContext} from '../Context';
 class Pedidos extends React.Component {
+    static contextType = DataContext;
     render() {
+        const {pedidos} = this.context;
         const StyledTableCell = withStyles((theme) => ({
             head: {
                 backgroundColor: theme.palette.common.black,
@@ -61,17 +63,25 @@ class Pedidos extends React.Component {
                 <Table aria-label="collapsible table">
                     <TableHead>
                         <TableRow>
-                            <StyledTableCell />
+                            
                             <StyledTableCell>Pedido</StyledTableCell>
                             <StyledTableCell align="right">Cliente</StyledTableCell>
-                            <StyledTableCell align="right">Fecha</StyledTableCell>
-                            <StyledTableCell align="right">Hora</StyledTableCell>
+                            <StyledTableCell align="right">Direccion</StyledTableCell>
+                            <StyledTableCell align="right">Telefono</StyledTableCell>
+                            <StyledTableCell align="right">Productos</StyledTableCell>
                             <StyledTableCell align="right">Total</StyledTableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map((row) => (
-                            <Row key={row.name} row={row} />
+                    {pedidos.map((row) => (
+                            <StyledTableRow key={row.id}>
+                                <StyledTableCell>{row.id}</StyledTableCell>
+                                <StyledTableCell>{row.title}</StyledTableCell>
+                                <StyledTableCell align="right">{row.direccion}</StyledTableCell>
+                                <StyledTableCell align="right">{row.telefono}</StyledTableCell>
+                                <StyledTableCell align="right">{row.contenido}</StyledTableCell>
+                                <StyledTableCell align="right">{row.precio}</StyledTableCell>
+                            </StyledTableRow>
                         ))}
                     </TableBody>
                 </Table>

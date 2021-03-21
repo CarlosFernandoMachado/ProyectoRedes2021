@@ -5,6 +5,7 @@ export class DataProvider extends Component {
 
     state = {
         products: [],
+        pedidos:[],
         cart: [],
         total: 0,
         usuarios:[],
@@ -25,6 +26,39 @@ export class DataProvider extends Component {
         }else{
             alert("The product has been added to cart.")
         }
+    };
+    addPedido = (title, direccion, telefono) =>{
+        if(title!== "" && direccion!=="" && telefono!==""){
+            const {cart, total} = this.state;
+            var comprado="";
+            cart.forEach((item,index) =>{
+                comprado = comprado + item.title +" cantidad: "+item.cantidad+" Precio/u: "+item.precio+"\n";
+            })
+            const mipedido ={
+                title:title,
+                direccion: direccion,
+                telefono: telefono,
+                contenido: comprado,
+                precio: total,
+                completado: false,
+            }
+            axios.post('http://localhost:9000/Pedidos', mipedido)
+            .then(response=>{
+                this.getTotal();
+                cart.forEach((item, index) =>{   
+                    cart.splice(index, 1)
+                })
+                this.setState({cart: cart});
+                alert("Se ha realizado el pedido con exito");
+            })
+            .catch(error=>{
+                console.log(error)
+            })
+          
+        }else{
+            alert("Debe llenar todos los campos (nombre, direccion, telefono y al menos un producto)");
+        }
+       
     };
     login=(email, password)=>{
         const {usuarios, EstaAutenticado} = this.state;
@@ -134,11 +168,19 @@ export class DataProvider extends Component {
         fetch("http://localhost:9000/users")
         .then(res => res.json())
         .then(res => this.setState({ usuarios: res }));
+        
+        fetch("http://localhost:9000/Pedidos")
+        .then(res => res.json())
+        .then(res => this.setState({ pedidos: res }));
     }
     componentDidMount(){
         fetch("http://localhost:9000/Productos")
         .then(res => res.json())
         .then(res => this.setState({ products: res }));
+
+        fetch("http://localhost:9000/Pedidos")
+        .then(res => res.json())
+        .then(res => this.setState({ pedidos: res }));
         const dataCart = JSON.parse(localStorage.getItem('dataCart'));
         if(dataCart !== null){
             this.setState({cart: dataCart});
@@ -151,11 +193,11 @@ export class DataProvider extends Component {
    
 
     render() {
-        const {EstaAutenticado, usuarios,products, cart,total} = this.state;
-        const {login,removeProductoInventario,actualizar_productos,addCart,reduction,increase,removeProduct,getTotal} = this;
+        const {EstaAutenticado, usuarios,products, cart,total,pedidos} = this.state;
+        const {login,removeProductoInventario,actualizar_productos,addCart,reduction,increase,addPedido,removeProduct,getTotal} = this;
         return (
             <DataContext.Provider 
-            value={{EstaAutenticado, usuarios, login, products,actualizar_productos, removeProductoInventario,addCart, cart, reduction,increase,removeProduct,total,getTotal}}>
+            value={{EstaAutenticado, usuarios, login, products,actualizar_productos, removeProductoInventario,addCart, cart, reduction,increase,addPedido,removeProduct,total,getTotal,pedidos}}>
                 {this.props.children}
             </DataContext.Provider>
         )
