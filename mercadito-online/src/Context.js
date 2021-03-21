@@ -32,7 +32,7 @@ export class DataProvider extends Component {
             const {cart, total} = this.state;
             var comprado="";
             cart.forEach((item,index) =>{
-                comprado = comprado + item.title +" cantidad: "+item.cantidad+" Precio/u: "+item.precio+"\n";
+                comprado = comprado + item.title +"."+item.cantidad+"."+item.precio+",";
             })
             const mipedido ={
                 title:title,

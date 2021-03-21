@@ -15,11 +15,11 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import {DataContext} from '../Context';
+import { DataContext } from '../Context';
 class Pedidos extends React.Component {
     static contextType = DataContext;
     render() {
-        const {pedidos} = this.context;
+        const { pedidos } = this.context;
         const StyledTableCell = withStyles((theme) => ({
             head: {
                 backgroundColor: theme.palette.common.black,
@@ -37,33 +37,12 @@ class Pedidos extends React.Component {
                 },
             },
         }))(TableRow);
-        function createData(pedido, cliente, fecha, hora, total, precio) {
-            return {
-                pedido,
-                cliente,
-                fecha,
-                hora,
-                total,
-                precio,
-                history: [
-                    { nombre: '2020-01-05', precio: '11091700', cantidad: 3 },
-                    { nombre: '2020-01-02', precio: 'Anonymous', cantidad: 1 },
-                ],
-            };
-        }
-        const rows = [
-            createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 3.99),
-            createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 4.99),
-            createData('Eclair', 262, 16.0, 24, 6.0, 3.79),
-            createData('Cupcake', 305, 3.7, 67, 4.3, 2.5),
-            createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5),
-        ];
         return (
             <TableContainer component={Paper}>
                 <Table aria-label="collapsible table">
                     <TableHead>
                         <TableRow>
-                            
+
                             <StyledTableCell>Pedido</StyledTableCell>
                             <StyledTableCell align="right">Cliente</StyledTableCell>
                             <StyledTableCell align="right">Direccion</StyledTableCell>
@@ -73,15 +52,8 @@ class Pedidos extends React.Component {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                    {pedidos.map((row) => (
-                            <StyledTableRow key={row.id}>
-                                <StyledTableCell>{row.id}</StyledTableCell>
-                                <StyledTableCell>{row.title}</StyledTableCell>
-                                <StyledTableCell align="right">{row.direccion}</StyledTableCell>
-                                <StyledTableCell align="right">{row.telefono}</StyledTableCell>
-                                <StyledTableCell align="right">{row.contenido}</StyledTableCell>
-                                <StyledTableCell align="right">{row.precio}</StyledTableCell>
-                            </StyledTableRow>
+                        {pedidos.map((row) => (
+                            <Row key={row.id} row={row} />
                         ))}
                     </TableBody>
                 </Table>
@@ -98,10 +70,28 @@ const useRowStyles = makeStyles({
     },
 });
 
+
+function createData(productos) {
+    var arreglo = [];
+    var res = productos.split("_");
+    var i;
+    var text = "";
+    for (i = 0; i < res.length; i++) {
+        text += res[i] + "<br>";
+    }
+    res = text.split("-");
+    text = "";
+    for (i = 0; i < res.length; i += 3) {
+        arreglo.push({ nombre: res[i], cantidad: res[i + 1], precio: res[i + 2] });
+    }
+    return arreglo;
+}
+
 function Row(props) {
     const { row } = props;
     const [open, setOpen] = React.useState(false);
     const classes = useRowStyles();
+    const productos = createData(row.contenido);
 
     return (
         <React.Fragment>
@@ -114,10 +104,10 @@ function Row(props) {
                 <TableCell component="th" scope="row">
                     {row.pedido}
                 </TableCell>
-                <TableCell align="right">{row.cliente}</TableCell>
-                <TableCell align="right">{row.fecha}</TableCell>
-                <TableCell align="right">{row.hora}</TableCell>
-                <TableCell align="right">{row.total}</TableCell>
+                <TableCell align="right">{row.title}</TableCell>
+                <TableCell align="right">{row.direccion}</TableCell>
+                <TableCell align="right">{row.telefono}</TableCell>
+                <TableCell align="right">{row.precio}</TableCell>
             </TableRow>
             <TableRow>
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -130,21 +120,21 @@ function Row(props) {
                                 <TableHead>
                                     <TableRow>
                                         <TableCell>Nombre</TableCell>
-                                        <TableCell>Precio</TableCell>
-                                        <TableCell align="right">Cantidad</TableCell>
+                                        <TableCell>Cantidad</TableCell>
+                                        <TableCell align="right">Precio</TableCell>
                                         <TableCell align="right">Total</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {row.history.map((historyRow) => (
-                                        <TableRow key={historyRow.date}>
+                                    {productos.map((row) => (
+                                        <TableRow key={row.nombre}>
                                             <TableCell component="th" scope="row">
-                                                {historyRow.nombre}
+                                                {row.nombre}
                                             </TableCell>
-                                            <TableCell>{historyRow.precio}</TableCell>
-                                            <TableCell align="right">{historyRow.cantidad}</TableCell>
+                                            <TableCell>{row.cantidad}</TableCell>
+                                            <TableCell align="right">{row.precio}</TableCell>
                                             <TableCell align="right">
-                                                {Math.round(historyRow.cantidad * row.precio * 100) / 100}
+                                                {Math.round(row.cantidad * row.precio * 100) / 100}
                                             </TableCell>
                                         </TableRow>
                                     ))}
