@@ -27,6 +27,10 @@ class Navbar extends React.Component {
             },
         }))(Badge);
         const { cart } = this.context;
+        var cantidad = 0;
+        cart.forEach(element => {
+            cantidad += element.cantidad;
+        });
         return (
             <div className="root">
                 <React.Fragment>
@@ -45,7 +49,7 @@ class Navbar extends React.Component {
                                 </IconButton>
                             }
                             <IconButton className="shopButtons" color="inherit" aria-label="cart" component={Link} to="/compras">
-                                <StyledBadge badgeContent={cart.length} color="secondary">
+                                <StyledBadge badgeContent={cantidad} color="secondary">
                                     <ShoppingCartIcon fontSize="large" />
                                 </StyledBadge>
                             </IconButton>

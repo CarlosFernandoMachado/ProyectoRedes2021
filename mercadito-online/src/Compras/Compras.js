@@ -88,7 +88,7 @@ class Compras extends React.Component {
         return (
             <div>
             <div className="datos">
-                <StyledContainer component="main" disableGutters={true}>
+                <Container component="main" disableGutters={true}>
                     <CssBaseline />
                     <Typography component="h1" variant="h5">
                         Porfavor ingrese sus datos para recibir su pedido
@@ -116,7 +116,7 @@ class Compras extends React.Component {
                             className="datos-items"
                         />
                     </div>
-                </StyledContainer>
+                </Container>
             </div>
                 <TableContainer component={Paper}>
                     <StyledTable>
