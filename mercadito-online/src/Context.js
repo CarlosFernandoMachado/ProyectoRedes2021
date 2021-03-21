@@ -24,7 +24,7 @@ export class DataProvider extends Component {
             })
             this.setState({cart: [...cart,...data]})
         }else{
-            alert("The product has been added to cart.")
+            this.increase(id);
         }
     };
     addPedido = (title, direccion, telefono) =>{
@@ -81,7 +81,7 @@ export class DataProvider extends Component {
         const { cart } = this.state;
         cart.forEach(item =>{
             if(item.id === id){
-                item.cantidad === 1 ? item.cantidad = 1 : item.cantidad -=1;
+                item.cantidad === 1 ? this.removeProduct(id) : item.cantidad -=1;
             }
         })
         this.setState({cart: cart});

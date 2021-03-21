@@ -115,7 +115,7 @@ class Compras extends React.Component {
                                 <StyledTableCell align="right">
                                     <RemoveCircleIcon color="secondary" fontSize="small" onClick={() => reduction(row.id)}/>
                                     {row.cantidad}
-                                    <AddCircleIcon color="secondary" fontSize="small" onClick={() => increase(row.id)}/>
+                                    <AddCircleIcon color="primary" fontSize="small" onClick={() => increase(row.id)}/>
                                     </StyledTableCell>
                                 <StyledTableCell align="right">{row.precio}</StyledTableCell>
                                 <StyledTableCell align="right">

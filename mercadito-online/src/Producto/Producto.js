@@ -13,21 +13,11 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import RemoveShoppingCartIcon from '@material-ui/icons/RemoveShoppingCart';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+
 export class Producto extends Component {
   static contextType = DataContext;
   render() {
-    const { products, addCart, increase, reduction, removeProduct } = this.context;
-    console.log(products);
-    function createData(id, name, cantidad, precio) {
-      return { id, name, cantidad, precio };
-    }
-    const rows = [
-      createData(1, 'Frozen yoghurt', 5, 50),
-      createData(2, 'Ice cream sandwich', 10, 18),
-      createData(3, 'Eclair', 2, 80),
-      createData(4, 'Cupcake', 20, 8),
-      createData(5, 'Gingerbread', 17, 12),
-    ];
+    const { cart, products, addCart, increase, reduction, removeProduct } = this.context;
 
     const StyledTableCell = withStyles((theme) => ({
       head: {
@@ -53,6 +43,8 @@ export class Producto extends Component {
       },
     }))(Table);
 
+    
+
     return (
       <div id="product">
         <TableContainer component={Paper}>
@@ -69,10 +61,11 @@ export class Producto extends Component {
               {products.map((product) => (
                 <StyledTableRow key={product.id}>
                   <StyledTableCell component="th" scope="row">{product.title}</StyledTableCell>
-
                   <StyledTableCell align="right">{product.precio}</StyledTableCell>
                   <StyledTableCell align="right">
-                    <AddShoppingCartIcon color="secondary" onClick={() => addCart(product.id)} />
+                    <RemoveCircleIcon color="secondary" onClick={() => reduction(product.id)} />
+                    <CantidadDeArticulos cart={cart} id={product.id}/>
+                    <AddCircleIcon color="primary" onClick={() => addCart(product.id)} />
                   </StyledTableCell>
                   <StyledTableCell align="right">
                   <RemoveShoppingCartIcon color="secondary" onClick={() => removeProduct(product.id)}/>
@@ -85,6 +78,17 @@ export class Producto extends Component {
       </div>
     );
   }
+}
+
+function CantidadDeArticulos(props){
+  const { cart, id } = props;
+  var cantidad = 0;
+  cart.forEach(element => {
+    if (element.id == id) {
+      cantidad = element.cantidad;
+    }
+  });
+  return cantidad
 }
 
 export default Producto;
