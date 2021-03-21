@@ -20,6 +20,9 @@ export default class Main extends React.Component {
     Autenticar = () => {
         this.setState({ logged: true });
     }
+    Salir = () => {
+        this.setState({ logged: false });
+    }
     EstaAutenticado = () => {
         if (this.state.logged) {
             return true
@@ -29,12 +32,12 @@ export default class Main extends React.Component {
     render() {
         return (
             <Router>
-                <Navegacion EstaAutenticado={this.EstaAutenticado}/>
+                <Navegacion EstaAutenticado={this.EstaAutenticado} />
                 <Switch>
                     <Route exact path="/" component={Productos} />
                     <Route path="/compras" component={Compras} />
                     <Route path="/autenticacion" render={(props) => (<Autenticacion {...props} Autenticar={this.Autenticar} />)} />
-                    <Route path="/admin" component={Admin} />
+                    <Route path="/admin" render={(props) => (<Admin {...props} Salir={this.Salir} />)} />
                     <Route path="/crearproducto" component={CrearProducto} />
                     <Route path="/modificarproducto" component={ModificarProducto} />
                     <Route path="/carrito" component={Cart} />

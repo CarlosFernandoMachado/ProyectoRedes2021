@@ -72,10 +72,10 @@ export class Producto extends Component {
 
                   <StyledTableCell align="right">{product.precio}</StyledTableCell>
                   <StyledTableCell align="right">
-                    <AddShoppingCartIcon color="secondary" fontSize="small" onClick={() => addCart(product.id)} />
+                    <AddShoppingCartIcon color="secondary" onClick={() => addCart(product.id)} />
                   </StyledTableCell>
                   <StyledTableCell align="right">
-                  <RemoveShoppingCartIcon color="secondary" fontSize="small" onClick={() => removeProduct(product.id)}/>
+                  <RemoveShoppingCartIcon color="secondary" onClick={() => removeProduct(product.id)}/>
                   </StyledTableCell>
                 </StyledTableRow>
               ))}

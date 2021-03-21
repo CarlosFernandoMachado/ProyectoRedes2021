@@ -86,6 +86,9 @@ export default class ModificarProducto extends React.Component {
                     <div className="paper">
                         <Button size="large" variant="contained" color="primary"  onClick={() => actualizar_productos(this.state.id,this.state.title,this.state.cantidad,this.state.precio)} type="submit" value="Submit">Modificar Producto</Button>
                     </div>
+                <div className="paper">
+                    <Button size="large" variant="contained" color="primary" component={Link} to="/admin">Cancelar</Button>
+                </div>
                     
                 </form>
                

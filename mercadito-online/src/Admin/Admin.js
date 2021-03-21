@@ -59,17 +59,6 @@ class Admin extends React.Component {
         },
       },
     }))(TableRow);
-
-    function createData(name, cantidad, precio) {
-      return { name, cantidad, precio };
-    }
-    const rows = [
-      createData('Frozen yoghurt', 5, 50),
-      createData('Ice cream sandwich', 10, 18),
-      createData('Eclair', 2, 80),
-      createData('Cupcake', 20, 8),
-      createData('Gingerbread', 17, 12),
-    ];
     return (
       <div>
         <TableContainer component={Paper}>
@@ -106,6 +95,7 @@ class Admin extends React.Component {
         <div className="grid-container">
           <Button className="grid-item" size="large" variant="contained" color="primary" component={Link} to="/crearproducto">Crear Producto</Button>
           <Button className="grid-item" size="large" variant="contained" color="primary" component={Link} to="/pedidos">Ver Pedidos Hechos</Button>
+          <Button className="grid-item" size="large" variant="contained" color="primary" component={Link} to="/" onClick={() => this.props.Salir()}>Salir</Button>
         </div>
       </div>
     );

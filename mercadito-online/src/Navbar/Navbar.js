@@ -36,12 +36,14 @@ class Navbar extends React.Component {
                             <Typography variant="h3" className="titulo" component={Link} to="/">
                                 Mercadito Online
                                 </Typography>
-                            <IconButton className="shopButtons" color="inherit" aria-label="user" component={Link} to="/autenticacion" onClick={() => console.log(this.props.EstaAutenticado())}>
-                                {this.props.EstaAutenticado()
-                                    ? <ExitToAppIcon fontSize="large" />
-                                    : <AccountCircleIcon fontSize="large" />
-                                }
-                            </IconButton>
+                            {this.props.EstaAutenticado()
+                                ? < IconButton className="shopButtons" color="inherit" aria-label="user" component={Link} to="/admin">
+                                    <ExitToAppIcon fontSize="large" />
+                                </IconButton>
+                                : < IconButton className="shopButtons" color="inherit" aria-label="user" component={Link} to="/autenticacion">
+                                    <AccountCircleIcon fontSize="large" />
+                                </IconButton>
+                            }
                             <IconButton className="shopButtons" color="inherit" aria-label="cart" component={Link} to="/compras">
                                 <StyledBadge badgeContent={cart.length} color="secondary">
                                     <ShoppingCartIcon fontSize="large" />
@@ -51,7 +53,7 @@ class Navbar extends React.Component {
                     </AppBar>
                     <div className="espacio" />
                 </React.Fragment>
-            </div>
+            </div >
         );
     }
 }
