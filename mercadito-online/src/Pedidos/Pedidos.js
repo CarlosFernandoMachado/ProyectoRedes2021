@@ -73,17 +73,12 @@ const useRowStyles = makeStyles({
 
 function createData(productos) {
     var arreglo = [];
-    var res = productos.split("_");
+    var res = productos.split(",");
     var i;
-    var text = "";
-    for (i = 0; i < res.length; i++) {
-        text += res[i] + "<br>";
-    }
-    res = text.split("-");
-    text = "";
     for (i = 0; i < res.length; i += 3) {
         arreglo.push({ nombre: res[i], cantidad: res[i + 1], precio: res[i + 2] });
     }
+    arreglo.pop();
     return arreglo;
 }
 
