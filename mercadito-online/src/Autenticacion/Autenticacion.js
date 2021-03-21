@@ -80,7 +80,7 @@ class Autenticacion extends React.Component {
     const { EstaAutenticado, usuarios, login } = this.context;
     return (
       <div>
-       
+
         { this.state.redirect ? (<Redirect push to="/admin" />) : null}
         <Container component="main" maxWidth="xs" >
           <CssBaseline />

@@ -1,0 +1,15 @@
+.papel{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.datos{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.datos-items{
+    margin: 10px;
+}
