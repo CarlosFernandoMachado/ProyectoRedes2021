@@ -29,7 +29,7 @@ export class DataProvider extends Component {
     };
     addPedido = (title, direccion, telefono) =>{
         if(title!== "" && direccion!=="" && telefono!==""){
-            const {cart, total} = this.state;
+            const {cart, total, pedidos} = this.state;
             var comprado="";
             cart.forEach((item,index) =>{
                 comprado = comprado + item.title +","+item.cantidad+","+item.precio+",";
@@ -48,6 +48,9 @@ export class DataProvider extends Component {
                 cart.forEach((item, index) =>{   
                     cart.splice(index, 1)
                 })
+                cart.splice(0,cart.length)
+                pedidos.push(mipedido);
+                this.setState({pedidos: pedidos});
                 this.setState({cart: cart});
                 alert("Se ha realizado el pedido con exito");
             })
@@ -132,6 +135,25 @@ export class DataProvider extends Component {
         }
        
     };
+    removePedido = id =>{
+        if(window.confirm("Borrar este pedido?")){
+            const {pedidos} = this.state;
+            pedidos.forEach((item, index) =>{
+                if(item.id === id){
+                    pedidos.splice(index, 1)
+                }
+            })
+            this.setState({pedidos: pedidos});
+            const url = "http://localhost:9000/Pedidos/"+id;
+            axios.delete(url)
+            .then(res => {
+              console.log(res);
+              console.log(res.data);
+        
+            })
+        }
+       
+    };
     actualizar_productos = (id,title,cantidad,precio) =>{
         const datos={
             id:id,
@@ -194,10 +216,10 @@ export class DataProvider extends Component {
 
     render() {
         const {EstaAutenticado, usuarios,products, cart,total,pedidos} = this.state;
-        const {login,removeProductoInventario,actualizar_productos,addCart,reduction,increase,addPedido,removeProduct,getTotal} = this;
+        const {login,removeProductoInventario,actualizar_productos,addCart,reduction,increase,addPedido,removeProduct,getTotal,removePedido} = this;
         return (
             <DataContext.Provider 
-            value={{EstaAutenticado, usuarios, login, products,actualizar_productos, removeProductoInventario,addCart, cart, reduction,increase,addPedido,removeProduct,total,getTotal,pedidos}}>
+            value={{EstaAutenticado, usuarios, login, products,actualizar_productos, removeProductoInventario,addCart, cart, reduction,increase,addPedido,removeProduct,total,getTotal,pedidos, removePedido}}>
                 {this.props.children}
             </DataContext.Provider>
         )
